@@ -3,7 +3,7 @@
 #include "Analyze_BMS_range.h"
 #include "BMS_Check.h"
 
-extern int (*fun_ptr_arr[])(float) = {batteryTempIsOk, batterySocIsOk, batterychargeRateIsOk};
+extern int (*fun_ptr_arr[])(float);
 int main()
 {
 	//Test for batteryIsOk function
