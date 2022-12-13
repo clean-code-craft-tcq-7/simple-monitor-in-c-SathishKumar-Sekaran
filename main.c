@@ -4,7 +4,7 @@
 #include "BMS_Check.h"
 
 extern int (*fun_ptr_arr[])(float) = {batteryTempIsOk, batterySocIsOk, batterychargeRateIsOk};
-void main()
+int main()
 {
 	//Test for batteryIsOk function
 	assert(batteryIsOk(25, 70, 0.7));
@@ -26,4 +26,6 @@ void main()
 	assert(((*fun_ptr_arr[2])(0.7)));
 	assert(!((*fun_ptr_arr[2])(1.0)));
 	assert(!((*fun_ptr_arr[2])(0.9)));
+	
+	return 0;
 }
