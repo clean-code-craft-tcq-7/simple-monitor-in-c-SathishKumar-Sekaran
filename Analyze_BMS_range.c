@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include "Analyze_BMS_range.h"
 
+extern const char* bmsAlertPrintMsg[TOTAL_LANGUAGE][TOTAL_ERROR_MSG * BMS_ERROR_LIMIT];
+extern int selectLanguage;
+extern int tolerancePercentage;
+extern st_BMSParameters st_BatterTemp,st_BatterSoc,st_BatterChargeRate;
+
 void printError(char* errStr)
 {
     printf("%s\n",errStr);
