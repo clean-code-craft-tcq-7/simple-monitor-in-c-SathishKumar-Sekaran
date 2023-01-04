@@ -5,6 +5,7 @@
 
 extern int selectLanguage;
 extern int tolerancePercentage;
+extern st_BMSParameters st_BatterTemp,st_BatterSoc,st_BatterChargeRate;
 
 int main()
 {
