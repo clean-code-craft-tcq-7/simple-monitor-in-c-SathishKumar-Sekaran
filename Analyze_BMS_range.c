@@ -6,32 +6,49 @@ void printError(char* errStr)
     printf("%s\n",errStr);
 }
 
-int batteryTempIsOk(float temperature)
+int BMS_ParameterErrCheck(float bmsValue,float min,float max,const char* printBuf)
 {
-  if(temperature < 0 || temperature > 45) 
+  if(bmsValue < min || bmsValue > max) 
   {
-    printError("Temperature out of range!");
+    printError(printBuf);
     return 0;
   }
   return 1;
 }
 
-int batterySocIsOk(float soc)
+int checkMinBatteryTolerance(float bmsValue,st_BMSParameters batteryParameterVal,int Count)
 {
-  if(soc < 20 || soc > 80) 
-  {
-    printError("State of Charge out of range!");
-    return 0;
-  }
-  return 1;
+	int return_Status = 1;
+	float toleranceVal = TOLERANCE_VALUE(batteryParameterVal.max,tolerancePercentage);
+	toleranceVal = toleranceVal + batteryParameterVal.min;
+	if(bmsValue <= toleranceVal)
+	{
+		printError(bmsAlertPrintMsg[selectLanguage][Count]);
+		return_Status = 0;
+	}
+	return return_Status;
 }
 
-int batterychargeRateIsOk(float chargeRate)
+int checkMaxBatteryTolerance(float bmsValue,st_BMSParameters batteryParameterVal,int Count)
 {
-  if(chargeRate > 0.8) 
-  {
-    printError("Charge Rate out of range!");
-    return 0;
-  }
-  return 1;
+	int return_Status = 1;
+	float toleranceVal = TOLERANCE_VALUE(batteryParameterVal.max,tolerancePercentage);
+	toleranceVal = batteryParameterVal.max - toleranceVal ;
+	if(bmsValue >= toleranceVal)
+	{
+		printError(bmsAlertPrintMsg[selectLanguage][Count+3]);
+		return_Status = 0;
+	}
+	return return_Status;
 }
+
+int batteryMidLevelCheck(float batteryParameterVal, float maxParameterVal)
+{
+	float maxParameterMidVal = maxParameterVal/2;
+	if(batteryParameterVal < maxParameterMidVal)
+	{
+		return 0;
+	}
+	return 1;
+}
+
