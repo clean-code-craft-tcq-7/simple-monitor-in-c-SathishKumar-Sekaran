@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "Analyze_BMS_range.h"
+#include "BMS_Check.h"
 
 extern const char* bmsAlertPrintMsg[TOTAL_LANGUAGE][TOTAL_ERROR_MSG * BMS_ERROR_LIMIT];
 extern int selectLanguage;
